@@ -34,25 +34,6 @@ Spring Data JPA
 ↓
 H2
 
-### Estructura
-
-com.testjava2026.prices
-├── domain
-│   └── model
-├── application
-│   ├── port
-│   │   ├── in
-│   │   └── out
-│   ├── service
-│   └── exception
-└── infrastructure
-├── adapter
-│   ├── in
-│   │   └── rest
-│   └── out
-│       └── persistence
-└── config
-
 ## Regla de negocio
 
 El servicio busca el precio aplicable según:
@@ -78,21 +59,11 @@ AND end_date >= ?
 ORDER BY priority DESC
 LIMIT 1;
 
-## Ejecutar la aplicación
+## Ejecutar la aplicación desde IntelliJ
 
 ### Requisitos
 
 - Java 21
-
-El proyecto incluye Gradle Wrapper, por lo que no es necesario instalar Gradle.
-
-En Windows:
-
-gradlew.bat bootRun
-
-En Linux/macOS:
-
-./gradlew bootRun
 
 La aplicación estará disponible en:
 
