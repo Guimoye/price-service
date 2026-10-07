@@ -1,12 +1,11 @@
 package com.testjava2026.prices.infrastructure.adapter.out.persistence;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Optional;
 
 public interface SpringDataPriceRepository extends JpaRepository<PriceJpaEntity, Long> {
 
@@ -14,12 +13,13 @@ public interface SpringDataPriceRepository extends JpaRepository<PriceJpaEntity,
 			select p from PriceJpaEntity p
 			where p.brandId = :brandId
 			and p.productId = :productId
-			and :applicationDate between p.startDate and p.endDate
+			and p.startDate <= :applicationDate
+			and p.endDate >= :applicationDate
 			order by p.priority desc
+			limit 1
 			""")
-	List<PriceJpaEntity> findApplicable(
+	Optional<PriceJpaEntity> findApplicable(
 			@Param("brandId") Long brandId,
 			@Param("productId") Long productId,
-			@Param("applicationDate") LocalDateTime applicationDate,
-			Pageable pageable);
+			@Param("applicationDate") LocalDateTime applicationDate);
 }

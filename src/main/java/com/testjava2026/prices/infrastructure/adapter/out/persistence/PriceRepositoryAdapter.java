@@ -2,7 +2,6 @@ package com.testjava2026.prices.infrastructure.adapter.out.persistence;
 
 import com.testjava2026.prices.application.port.out.PriceRepository;
 import com.testjava2026.prices.domain.model.Price;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -20,9 +19,7 @@ public class PriceRepositoryAdapter implements PriceRepository {
 	@Override
 	public Optional<Price> findApplicablePrice(LocalDateTime applicationDate, Long brandId, Long productId) {
 		return springDataPriceRepository
-				.findApplicable(brandId, productId, applicationDate, PageRequest.ofSize(1))
-				.stream()
-				.findFirst()
+				.findApplicable(brandId, productId, applicationDate)
 				.map(this::toDomain);
 	}
 
