@@ -5,13 +5,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "PRICES")
+@Table(name = "PRICES", indexes = @Index(
+		name = "idx_prices_lookup",
+		columnList = "BRAND_ID, PRODUCT_ID, START_DATE, END_DATE, PRIORITY"))
 public class PriceJpaEntity {
 
 	@Id
@@ -36,7 +39,7 @@ public class PriceJpaEntity {
 	@Column(name = "PRIORITY", nullable = false)
 	private Integer priority;
 
-	@Column(name = "PRICE", nullable = false)
+	@Column(name = "PRICE", nullable = false, precision = 10, scale = 2)
 	private BigDecimal price;
 
 	@Column(name = "CURR", nullable = false, length = 3)
