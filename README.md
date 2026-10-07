@@ -46,7 +46,10 @@ Si existen varias tarifas aplicables en la misma fecha, se selecciona la de
 mayor prioridad.
 
 La selección se realiza directamente en base de datos para evitar recuperar
-registros innecesarios.
+registros innecesarios: una única consulta que devuelve como máximo una fila.
+
+Para mantener el rendimiento con volúmenes altos se recomienda un índice sobre
+(brand_id, product_id, start_date, end_date).
 
 Conceptualmente:
 
@@ -69,6 +72,19 @@ La aplicación estará disponible en:
 
 http://localhost:9082
 
+## Perfiles de Spring
+
+El perfil por defecto es `dev` (spring.profiles.default). Define la base de
+datos H2 en memoria, la creación del esquema, la carga de data.sql y la
+consola H2 (application-dev.yaml).
+
+Los tests usan su propia configuración en src/test/resources/application.yaml,
+con una base de datos H2 independiente.
+
+Para indicar el perfil de forma explícita:
+
+--spring.profiles.active=dev
+
 ## Base de datos H2
 
 La aplicación utiliza una base de datos H2 en memoria.
@@ -79,7 +95,7 @@ http://localhost:9082/h2-console
 
 Configuración:
 
-JDBC URL: jdbc:h2:mem:pricedb
+JDBC URL: jdbc:h2:mem:prices
 User: sa
 Password:
 
@@ -143,7 +159,12 @@ Para ejecutar el build completo:
 
 gradlew.bat clean build
 
-Los tests de integración validan los cinco escenarios indicados en el enunciado.
+Los tests de integración validan los cinco escenarios indicados en el enunciado,
+comprobando la respuesta completa (producto, cadena, tarifa, fechas, precio y
+moneda).
+
+Además se prueban las respuestas de error del endpoint (404 sin tarifa aplicable
+y 400 por parámetros inválidos o ausentes) y el caso de uso con tests unitarios.
 
 ## Casos de prueba
 
@@ -168,5 +189,5 @@ Los tests de integración validan los cinco escenarios indicados en el enunciado
 
 ## Versionado
 
-v1.0.0
+v1.0.1
 
