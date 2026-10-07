@@ -1,6 +1,6 @@
 package com.testjava2026.prices.infrastructure.adapter.in.rest.exception;
 
-import com.testjava2026.prices.application.exception.PriceNotFoundException;
+import com.testjava2026.prices.domain.exception.PriceNotFoundException;
 import com.testjava2026.prices.infrastructure.adapter.in.rest.dto.ApiError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package com.testjava2026.prices.application.service;
 
-import com.testjava2026.prices.application.exception.PriceNotFoundException;
 import com.testjava2026.prices.application.port.out.PriceRepository;
+import com.testjava2026.prices.domain.exception.PriceNotFoundException;
 import com.testjava2026.prices.domain.model.Price;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,6 +46,9 @@ class GetApplicablePriceServiceTest {
 		when(priceRepository.findApplicablePrice(fecha, 1L, 35455L)).thenReturn(Optional.empty());
 
 		assertThatThrownBy(() -> getApplicablePriceService.getApplicablePrice(fecha, 1L, 35455L))
-				.isInstanceOf(PriceNotFoundException.class);
+				.isInstanceOf(PriceNotFoundException.class)
+				.hasMessageContaining("brandId=1")
+				.hasMessageContaining("productId=35455");
+		verify(priceRepository).findApplicablePrice(fecha, 1L, 35455L);
 	}
 }

@@ -1,14 +1,12 @@
 package com.testjava2026.prices.application.service;
 
-import com.testjava2026.prices.application.exception.PriceNotFoundException;
 import com.testjava2026.prices.application.port.in.GetApplicablePriceUseCase;
 import com.testjava2026.prices.application.port.out.PriceRepository;
+import com.testjava2026.prices.domain.exception.PriceNotFoundException;
 import com.testjava2026.prices.domain.model.Price;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
-@Service
 public class GetApplicablePriceService implements GetApplicablePriceUseCase {
 
 	private final PriceRepository priceRepository;

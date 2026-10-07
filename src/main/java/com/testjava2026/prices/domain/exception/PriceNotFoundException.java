@@ -1,4 +1,4 @@
-package com.testjava2026.prices.application.exception;
+package com.testjava2026.prices.domain.exception;
 
 import java.time.LocalDateTime;
 
